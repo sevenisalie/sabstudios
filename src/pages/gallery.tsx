@@ -6,8 +6,7 @@ import Terrain from "../components/world/Terrain"
 import { useThree } from '@react-three/fiber'
 import { GraphQLClient } from 'graphql-request'
 import { useEffect, useState } from 'react'
-import dotenv from 'dotenv'
-dotenv.config()
+
 
 export async function getStaticProps() {
   const endpoint = process.env.CMS_URL || "" //hosted on hygraph (formerly GraphCMS)
