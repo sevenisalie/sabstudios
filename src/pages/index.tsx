@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { Suspense, useRef } from 'react'
+import React, { Suspense, lazy, useRef } from 'react'
 import SabText from '../components/world/SabText'
 import { Canvas, useThree } from '@react-three/fiber'
 import Lion from "../components/world/Lion"
@@ -27,13 +27,7 @@ const cameraOptions = {
 
 
 function start() {
-    const LoadingComponent = () => {
-        return (
-            <>
-                <LoadingOverlay />
-            </>
-        )
-    }
+    const LazyFooter = lazy(() => import('@/components/home/Footer'))
     return (
         <>
             <Head>
@@ -46,9 +40,8 @@ A cosmic canvas, a spiritual domain." />
                 <link rel="icon" href="/img/smileycrud.png" />
             </Head>
             <main style={{ position: "relative", width: "full", maxHeight: "100vh", minHeight: "100vh", height: "100vh", backgroundColor: "transparent" }}>
-                <Suspense fallback={LoadingComponent()}>
+                <Suspense fallback={<LoadingOverlay />}>
                     <Canvas
-                        shadows
                         camera={{
                             position: cameraOptions.position,
                             fov: cameraOptions.fov,
@@ -73,7 +66,10 @@ A cosmic canvas, a spiritual domain." />
                         {/* <Environment preset="studio" /> */}
                         <BakeShadows />
                     </Canvas>
-                    <Footer />
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <LazyFooter />
+
+                    </Suspense>
                 </Suspense>
             </main>
         </>

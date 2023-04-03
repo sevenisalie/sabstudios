@@ -1,6 +1,6 @@
 import { useSpring, animated, useTrail } from '@react-spring/web'
 import Link from 'next/link'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { lazy, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AiFillInstagram } from "react-icons/ai"
 import { BsFillEaselFill } from "react-icons/bs"
 import { FaPatreon } from "react-icons/fa"
@@ -138,5 +138,8 @@ function Footer() {
         </>
     )
 }
+const SettingsComponent = lazy(() => {
+    return new Promise(Footer)
+});
 
 export default Footer
