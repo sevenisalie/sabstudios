@@ -3,8 +3,7 @@ import React, { useRef } from "react"
 import * as THREE from "three"
 
 export default function Lite() {
-    const dirl = useRef<any>(null)
-    useHelper(dirl, THREE.DirectionalLightHelper, 1,)
+
     return (
         <>
             {/* <directionalLight ref={dirl} target-position={[0, 0.7, 0]} color={"#f5f2c4"} position={[-39, 39, 4]} intensity={1} /> */}

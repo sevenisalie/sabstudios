@@ -31,7 +31,7 @@ function LoadingOverlay() {
         return (
             <>
                 <animated.pre
-                    style={{ color: "rgb(23, 145, 35)", font: "Cascadia Mono", }}
+                    style={{ scale: "0.88", alignSelf: "center", justifySelf: "center", color: "rgb(23, 145, 35)", font: "Cascadia Mono", }}
                     key={i}
                 >
                     {asciiArray[i]}

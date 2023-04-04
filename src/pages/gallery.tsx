@@ -37,7 +37,6 @@ export async function getStaticProps() {
     props: { artwork: artwork.artworks }
   }
 }
-const pexel = (id: any) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,7 +45,7 @@ export default function Home({ artwork }: any) {
   return (
     <>
       <Head>
-        <title>mrk.sab - gallery</title>
+        <title>sab.studios - gallery</title>
         <meta name="description" content="Surrealist techniques, his brush does sway,
 Capturing the beauty in life every day,
 People, nature, and even himself,

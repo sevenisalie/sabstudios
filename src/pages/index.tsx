@@ -1,17 +1,14 @@
 import Head from 'next/head'
-import React, { Suspense, lazy, useRef } from 'react'
+import React, { Suspense, lazy } from 'react'
 import SabText from '../components/world/SabText'
-import { Canvas, useThree } from '@react-three/fiber'
-import Lion from "../components/world/Lion"
+import { Canvas } from '@react-three/fiber'
 import Ground from "../components/world/Ground"
-import { AccumulativeShadows, BakeShadows, CameraControls, Environment, MeshReflectorMaterial, PerspectiveCamera, RandomizedLight, Sparkles, SpotLight, Stage, useDepthBuffer, useHelper } from '@react-three/drei'
-import * as THREE from 'three'
-import StartButton from '@/components/world/StartButton'
-import Footer from '@/components/home/Footer'
+import { BakeShadows, CameraControls } from '@react-three/drei'
 import LoadingOverlay from '@/components/home/LoadingOverlay'
 import Sky from '../components/world/Sky'
 import { Bloom, DepthOfField, EffectComposer } from '@react-three/postprocessing'
 import Lite from '@/components/world/Lite'
+//footer is lazy loaded below
 
 const cameraOptions = {
     focus: 10,
@@ -31,7 +28,7 @@ function start() {
     return (
         <>
             <Head>
-                <title>mrk.sab - home</title>
+                <title>sab.studios - home</title>
                 <meta name="description" content="Sabaliauskas Studios - In his studio, chaos and squalor reign,
 An artistic sanctuary, a psychedelic brain,
 Only his art provides the refrain,
@@ -63,12 +60,10 @@ A cosmic canvas, a spiritual domain." />
                             <Bloom luminanceThreshold={0} mipmapBlur luminanceSmoothing={0.0} intensity={4} />
                             <DepthOfField target={[0, 0, 13]} focalLength={0.3} bokehScale={15} height={700} />
                         </EffectComposer>
-                        {/* <Environment preset="studio" /> */}
                         <BakeShadows />
                     </Canvas>
                     <Suspense fallback={<LoadingOverlay />}>
                         <LazyFooter />
-
                     </Suspense>
                 </Suspense>
             </main>

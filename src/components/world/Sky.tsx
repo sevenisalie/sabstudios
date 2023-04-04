@@ -1,14 +1,12 @@
 import { MeshReflectorMaterial, Sphere } from '@react-three/drei'
 import React from 'react'
-import * as THREE from "three"
 function Sky({ args }: any) {
     return (
         <>
             <Sphere args={args} >
                 <MeshReflectorMaterial
-                    // roughnessMap={roughnessMap}
-                    // normalMap={normalMap}
-                    resolution={2048}
+
+                    resolution={1024}
                     mixBlur={1}
                     mixStrength={50}
                     roughness={1}
