@@ -1,7 +1,7 @@
 import { Center, Text3D, useDepthBuffer, SpotLight, Sphere, Text, useVideoTexture, useTexture, Reflector } from '@react-three/drei'
 import { RootState, useFrame, useLoader, useThree } from '@react-three/fiber'
 import React, { ExoticComponent, MutableRefObject, RefObject, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { CubeTextureLoader, Euler, TextureLoader, Vector3 } from 'three'
+import * as THREE from "three"
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { BlurPass, Resizer, KernelSize } from 'postprocessing'
 import { a, useSpring } from '@react-spring/three'
@@ -17,21 +17,28 @@ type VideoTextureProps = {
     crossOrigin?: string
 }
 function VideoMaterial({ url }: any) {
+    const meshRef = useRef()
+
+    const [video] = useState(() => { return Object.assign(document.createElement("video"), { src: url, crossOrigin: 'Anonymous', loop: true, muted: true, autoplay: true, playsinline: true }) })
     const videoTextureOptions: VideoTextureProps = {
         unsuspend: 'canplay',
         crossOrigin: 'Anonymous',
         muted: true,
         loop: true,
-        start: true
-    }
-    const texture = useVideoTexture(url, videoTextureOptions)
+        start: true,
 
+    }
+    // const texture = useVideoTexture(url, videoTextureOptions)
+    useEffect(() => {
+        video.setAttribute('playsinline', "true")
+        video.play()
+    }, [])
     return (
         <meshBasicMaterial
-            toneMapped={false}
-            map={texture}
+            toneMapped={false}>
+            <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
 
-        />
+        </meshBasicMaterial>
     )
 }
 
@@ -75,26 +82,29 @@ function SabText(props: any): JSX.Element {
     const threeState = useThree(state => state) as RootState
 
 
+
     return (
         <>
             <mesh
                 {...props}
             >
-                <Text
-                    ref={text}
-                    font={"/square-deal.ttf"}
-                    fontSize={1 * threeState.viewport.aspect}
-                    letterSpacing={0.05}
-                    lineHeight={0.62}
-                    rotation={[0, 0.42, 0]}
+                <Suspense fallback={null}>
 
-                >
-                    {` SAB \n STUDIO
+                    <Text
+                        ref={text}
+                        font={"/square-deal.ttf"}
+                        fontSize={1 * threeState.viewport.aspect}
+                        letterSpacing={0.05}
+                        lineHeight={0.62}
+                        rotation={[0, 0.42, 0]}
+
+                    >
+                        {` SAB \n STUDIO
                 `}
-                    <Suspense fallback={fallbackImage.src}>
                         <VideoMaterial url={"/img/anime.mp4"} />
-                    </Suspense>
-                </Text>
+                    </Text>
+                </Suspense>
+
             </mesh>
 
 
