@@ -7,7 +7,7 @@ const asciiText = `
  L)       O)    oo A)    aa D)    dd   I)   N) nn nn G)  ggg     
  L)       O)    oo A)aaaaaa D)    dd   I)   N)  nnnn G)    gg    
  L)       O)    oo A)    aa D)    dd   I)   N)   nnn  G)   gg    
-L)llllll  O)oooo  A)    aa D)ddddd  I)iiii N)    nn   G)ggg 
+ L)llllll  O)oooo  A)    aa D)ddddd  I)iiii N)    nn   G)ggg 
 `
 function LoadingOverlay() {
     const [asciiArray, setAsciiArray] = useState(asciiText.split("\n"))
@@ -30,20 +30,19 @@ function LoadingOverlay() {
     const asciiMap = trails.map((trail, i) => {
         return (
             <>
-                <animated.pre
-                    style={{ scale: "0.88", alignSelf: "center", justifySelf: "center", color: "rgb(23, 145, 35)", font: "Cascadia Mono", }}
-                    key={i}
-                >
-                    {asciiArray[i]}
 
-                </animated.pre>
             </>
         )
     })
 
     return (
         <div style={{ marginTop: "auto", marginBottom: "auto", display: "flex", flexDirection: "column", width: "100%", height: "100vh", alignContent: "center", justifyContent: "center", alignItems: "center", justifyItems: "center" }}>
-            {asciiMap}
+            <animated.pre
+                style={{ scale: "0.68", alignSelf: "center", justifySelf: "center", color: "rgb(23, 145, 35)", font: "Cascadia Mono", }}
+            >
+                {asciiText}
+
+            </animated.pre>
         </div>
 
     )

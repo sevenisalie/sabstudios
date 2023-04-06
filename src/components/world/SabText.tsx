@@ -4,7 +4,6 @@ import React, { ExoticComponent, MutableRefObject, RefObject, Suspense, useEffec
 import * as THREE from "three"
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { BlurPass, Resizer, KernelSize } from 'postprocessing'
-import { a, useSpring } from '@react-spring/three'
 import useEventListener from '@/hooks/useEventListener'
 
 import fallbackImage from "../../../public/img/nosignal.jpg"
@@ -97,7 +96,6 @@ function SabText(props: any): JSX.Element {
                         letterSpacing={0.05}
                         lineHeight={0.62}
                         rotation={[0, 0.42, 0]}
-
                     >
                         {` SAB \n STUDIO
                 `}

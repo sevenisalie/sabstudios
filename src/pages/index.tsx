@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import SabText from '../components/world/SabText'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, RootState, useThree } from '@react-three/fiber'
 import Ground from "../components/world/Ground"
-import { BakeShadows, CameraControls } from '@react-three/drei'
+import { BakeShadows, CameraControls, PerspectiveCamera } from '@react-three/drei'
 import LoadingOverlay from '@/components/home/LoadingOverlay'
 import Sky from '../components/world/Sky'
 import { Bloom, DepthOfField, EffectComposer } from '@react-three/postprocessing'
@@ -16,40 +16,66 @@ const cameraOptions = {
     near: 0.1,
     far: 1000,
     aspect: 1.625,
-    rotation: [-0.3172706876688479, 0.10100262483414511, 0.03309708278765691],
-    position: [1.3350534861147443, 1.470134949911375, 3.3288727391164907],
+
 
 } as any
 
 
+function Kamera() {
+    const threeState = useThree(state => state) as RootState
+    const [cameraOptions, setCameraOptions] = useState({
+        focus: 10,
+        fov: 75,
+        near: 0.1,
+        far: 1000,
+        aspect: 1.625,
+        position: [0, 0.7, 1.1]
 
-function start() {
+    }) as any
+    const [mobileViewPort, setMobileViewPort] = useState(false)
+    useEffect(() => {
+
+        //vertical
+        if (threeState.viewport.aspect < 1) {
+            setCameraOptions((state: any) => ({
+                ...cameraOptions,
+                fov: 125,
+            }))
+        }
+        return console.log("Camera Set")
+    }, [window.innerWidth])
+    return (
+        <>
+            <PerspectiveCamera makeDefault {...cameraOptions} />
+        </>
+    )
+}
+
+
+function start(): JSX.Element {
     const LazyFooter = lazy(() => import('@/components/home/Footer'))
+    const LazyHeader = lazy(() => import('@/components/home/Header'))
     return (
         <>
             <Head>
                 <title>sab.studios - home</title>
                 <meta name="description" content="Sabaliauskas Studios - In his studio, chaos and squalor reign,
-An artistic sanctuary, a psychedelic brain,
-Only his art provides the refrain,
-A cosmic canvas, a spiritual domain." />
+                    An artistic sanctuary, a psychedelic brain,
+                    Only his art provides the refrain,
+                    A cosmic canvas, a spiritual domain."
+                />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/img/smileycrud.png" />
             </Head>
             <main style={{ position: "relative", width: "full", maxHeight: "100vh", minHeight: "100vh", height: "100vh", backgroundColor: "transparent" }}>
                 <Suspense fallback={<LoadingOverlay />}>
                     <Canvas
-                        camera={{
-                            position: cameraOptions.position,
-                            fov: cameraOptions.fov,
-                            rotation: cameraOptions.rotation,
-
-                        }}
                     >
+                        <Kamera />
                         <Sky args={[100, 64, 32]} />
                         <Lite />
 
-                        <CameraControls />
+                        {/* <CameraControls /> */}
 
                         <group>
                             <SabText position={[0, 0.7, 0]} />
@@ -64,6 +90,9 @@ A cosmic canvas, a spiritual domain." />
                     </Canvas>
                     <Suspense fallback={<LoadingOverlay />}>
                         <LazyFooter />
+                    </Suspense>
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <LazyHeader />
                     </Suspense>
                 </Suspense>
             </main>

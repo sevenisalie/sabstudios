@@ -102,7 +102,7 @@ function Placard({ art, refFrame, placardInfo, showPlacard }: any) {
     )
 }
 
-function Frame({ art, meshProps, placardInfo, setSelected, _name, selected, key, url, c = new THREE.Color(), ...props }: any) {
+function Frame({ art, meshProps, placardInfo, setSelected, _name, selected, url, c = new THREE.Color(), ...props }: any) {
     const refFrame: any = useRef()
     const image: any = useRef()
     const frame: any = useRef()
